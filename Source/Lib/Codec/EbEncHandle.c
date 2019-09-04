@@ -642,8 +642,21 @@ void eb_set_thread_management_parameters( EbSvtVp9EncConfiguration *config_ptr){
     if (num_groups == 1) {
         uint32_t lps = config_ptr->logical_processors == 0 ? num_logical_processors :
             config_ptr->logical_processors < num_logical_processors ? config_ptr->logical_processors : num_logical_processors;
-        for (uint32_t i = 0; i < lps; i++)
+        printf("BEFORE CPUSET\n");
+        for (int i = 0; i < lps; i++) {
+            printf("%d-", CPU_ISSET(i, &group_affinity));
+        }printf("\n");
+        for (uint32_t i = 0; i < lps; i++) {
             CPU_SET(lp_group[0].group[i], &group_affinity);
+            printf("%d", lp_group[0].group[i]);
+        }printf("\n");
+
+        printf("AFTER CPUSET\n");
+        for (int i = 0; i < lps; i++) {
+            printf("%d-", CPU_ISSET(i, &group_affinity));
+        }printf("\n");
+
+        printf("lps: %d\n", (int)lps);
     }
     else if (num_groups > 1) {
         uint32_t num_lp_per_group = num_logical_processors / num_groups;
