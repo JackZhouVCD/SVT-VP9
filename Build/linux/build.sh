@@ -53,7 +53,7 @@ CMAKE_ASSEMBLER=yasm
 GCC_COMPILER=gcc
 AR_COMPILER=gcc-ar
 RANLIB_COMPILER=gcc-ranlib
-CMAKE_COMPILER=$GCC_COMPILER
+CMAKE_COMPILER=gcc-8
 
 if [ $# -eq 0 ]; then
     debug
